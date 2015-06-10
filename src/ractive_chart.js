@@ -1,6 +1,7 @@
 // Simple multi interactive dataset chart
 // requires Ractive.js, Sugar.js
 // Copyright (C) 2015: Michele Comitini <mcm@glisco.it>
+// Copying: see the file LICENSE.
 
 var ractive_chart = {
 	data: function () { return {
