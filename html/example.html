@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+  <head>
+	<title></title>
+	<meta charset="utf-8" />
+	<link rel='stylesheet' href='../css/pure-release-0.6.0/pure-min.css'></link>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+	 text {
+	   font-family: sans;
+	 }
+	</style>
+	<style>
+	  #top-form {
+	    font-size: small;
+	  }
+	  #top-form  .l-box   {
+	   padding: 0.1em 0.5em 0.1em 0.5em;
+	  }
+	  .h-point-list {
+	   margin-bottom: 0;
+	  }
+	  .pt-coords {
+	    width: 50%;
+	  }
+	  th {
+	   text-align: center;
+	  }
+	  .ds-title {
+	    line-height: 3em;
+	    height: auto;
+	    font-weight: bold;
+	    font-size: big;
+	  }
+	  .ds-list {
+	    font-size: 10px;
+	    margin-top: 3em;
+	  }
+	</style>
+  </head>
+  <body>
+	<div id="rtarget"></div>
+	<script id="rtemplate" type="text/ractivejs">
+<div class="pure-g">
+  <div class="pure-u-3-4">
+	<chart size='{x: 760.0, y: 220.0}' xaxis='{{xaxis}}'
+		   yaxis='{{yaxis}}' datasets='{{datasets}}' activedataset='{{activedataset}}' />
+  </div>
+  <form id="top-form" class="pure-form pure-u-1-4">
+	<div class="pure-g">
+	  <div class="pure-u-1-2">
+		<div class="l-box">
+		  <label>x min: <input class="pure-input-1" name="xmin" value="{{xaxis.min}}" lazy="1000" /></label>
+		</div>
+	  </div>
+	  <div class="pure-u-1-2">
+		<div class="l-box">
+		  <label>x max: <input class="pure-input-1" name="xmax" value="{{xaxis.max}}" lazy="1000" /></label>
+		</div>
+	  </div>
+	  <div class="pure-u-1-2">
+		<div class="l-box">
+
+		  <label>y min: <input class="pure-input-1" name="ymin" value="{{yaxis.min}}" lazy="1000" /></label>
+		</div>
+	  </div>
+	  <div class="pure-u-1-2">
+		<div class="l-box">
+
+		  <label>y max: <input class="pure-input-1" name="ymax" value="{{yaxis.max}}" lazy="1000" /></label>
+		</div>
+	  </div>
+	  <div class="pure-u-1-2">
+		<div class="l-box">
+
+		  <label>x ticks: <input class="pure-input-1" value="{{xaxis.ticks}}" lazy="1000" /></label>
+		</div>
+	  </div>
+	  <div class="pure-u-1-2">
+		<div class="l-box">
+		  <label>x resolution: <input class="pure-input-1" value="{{xaxis.resolution}}" lazy="1000" /></label>
+		</div>
+	  </div>
+	  <div class="pure-u-1-2">
+		<div class="l-box">
+
+		  <label>y ticks: <input class="pure-input-1" value="{{yaxis.ticks}}" lazy="1000" /></label>
+		</div>
+	  </div>
+	  <div class="pure-u-1-2">
+		<div class="l-box">
+		  <label>y resolution: <input class="pure-input-1" value="{{yaxis.resolution}}" lazy="1000" /></label>
+		</div>
+	  </div>
+	</div>
+	<div class="ds-list">
+	  {{#datasets:ds}}
+	  <div  class="pure-g">
+		<div class="pure-u-1 ds-title" style='border-bottom: 5px solid
+			 {{pointcolor}}'>
+		  <div class="pure-g">
+			<div class="pure-u-2-3">
+				Set: {{name}}
+			</div>
+			{{#if (ds != activedataset)}}
+			<div class="pure-u-1-3">
+			  <button class="pure-button" on-click="activateds">ACTIVATE</button>
+			</div>
+			{{/if}}
+		  </div>
+		</div>
+		{{#if (ds == activedataset)}}
+		<table class="pure-u-1 pure-table pure-table-striped">
+		  <colgroup>
+			<col class="pt-coords" span="2"/>
+			<col class="pt-del" />
+		  </colgroup>
+		  <thead>
+			<tr>
+			  <th>x</th>
+			  <th>y</th>
+			  <th></th>
+			</tr>
+		  </thead>
+		  <tbody>
+			{{#points:i}}
+			<tr>
+			  <td><input class="pure-input-1" value="{{this.0}}" /></td>
+			  <td><input class="pure-input-1" value="{{this.1}}" /></td>
+			  <td><button class="pure-button" on-click='delpoint:{{ds}},{{i}}' >X</button></td>
+			</tr>
+			{{/points}}
+			<tr>
+			  <td><input class="pure-input-1" value="{{newx}}" /></td>
+			  <td><input class="pure-input-1" value="{{newy}}" /></td>
+			  <td><button class="pure-button" on-click='addpoint:{{ds}}' >ADD</button></td>
+			</tr>
+		  </tbody>
+		</table>
+		{{/if}}
+	  </div>
+	  {{/datasets}}
+	</div>
+  </form>
+</div>
+	</script>
+	<script src="../js/sugar.min.js"></script>
+	<script src="../js/ractive.min.js"></script>
+	<script src='../src/ractive_chart.js'></script>
+	<script>
+	 var ractive = new Ractive({
+	   	el: '#rtarget',
+	   template: '#rtemplate',
+	   data: {
+		 xaxis: ractive_chart.data().xaxis, // init with default values from component
+		 yaxis: ractive_chart.data().yaxis, // init with default values from component
+		 datasets: ractive_chart.data().datasets, // init with default values from component
+		 activedataset: 0,
+		 newx: 0.0,
+		 newy: 0.0,
+	   },
+	   components: {
+		 chart: ractive_chart.Chart,
+	   },
+	 });
+	 ractive.on('delpoint', function (ev, ds, i) {
+	   var datasets = this.get('datasets');
+	   datasets[ds].points.removeAt(i);
+	   return false;
+	 });
+	 ractive.on('activateds', function (ev) {
+	   var chart = this.findComponent('chart');
+	   chart.set('activedataset', ev.context.name); //FIXME: this requires dataset.name == <index of dataset>
+	   return false;
+		});
+	 ractive.on('addpoint', function (ev, ds) {
+	   	   var datasets = this.get('datasets');
+	   datasets[ds].points.push([this.get('newx'), this.get('newy')]);
+	   datasets[ds].points.sort(function (a, b) {return a[0] - b[0];});
+	   this.set('newx', 0.0);
+	   this.set('newy', 0.0);
+	   return false;
+	   
+	 });
+	</script>
+  </body>
+</html>

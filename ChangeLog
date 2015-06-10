@@ -1,0 +1,26 @@
+2015-06-11    <mcm@glisco.it>
+
+	* ractive_chart.js: offset to center on 0 the grid (not fully
+	working)
+	* html/example.html: allow adding points entering them manually into dataset.
+
+2015-06-03    <mcm@glisco.it>
+
+	* ractive_chart.js: fix comment
+
+2015-05-25    <mcm@amiloo>
+
+	* ractive_chart.js: Summary: Added shadow filters.
+
+2015-05-25    <mcm@amiloo>
+
+	* ChangeLog: Summary: added file for repository management.
+
+2015-05-25    <mcm@amiloo>
+
+	* ractive_chart.js, html/example.html: Summary: First commit.  Working prototype.
+
+
+Copyright 2015 Michele Comitini <mcm@glisco.it>, Glisco s.n.c.
+Copying and distribution of this file, with or without modification, are
+permitted provided the copyright notice and this notice are preserved.
