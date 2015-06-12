@@ -3,7 +3,7 @@ A basic reactive cartesian chart, in the form of a Ractive.js component.
 Data can be added to the active dataset by clicking on the chart canvas, double clicking on a point deletes the point,
 dragging a point moves the point.  Datasets are dynamically sorted in respect to the x value.
 
-See html/example.html to see how to interact with datasets.
+See html/example.html (also here: http://svg.soon.it/ractive-chart/html/example.html) to see how to interact with datasets.
 
 The following simply creates a clickable only chart with 2 datasets:
 ```html	
