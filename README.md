@@ -4,6 +4,7 @@ See html/example.html to see how to interact with datasets.
 
 The following simply creates a clickable only chart with 2 datasets:
 ```html	
+<div id="rtarget"></div>
 <script id="rtemplate" type="text/ractivejs">
 	<chart size='{x: 760.0, y: 220.0}' xaxis='{{xaxis}}'
 		   yaxis='{{yaxis}}' datasets='{{datasets}}' activedataset='{{activedataset}}' />
